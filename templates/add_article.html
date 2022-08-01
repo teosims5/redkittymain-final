@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<a id="heading" href="/" style="text-align: center;">
+  <h1>Red Kitty</h1>
+</a>
+<h5 style="text-align: center ;">Add Article</h5>
+{% if error %}
+<div class="alert alert-danger alert-dismissible">{{error}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+{% if msg %}
+<div class="alert alert-success alert-dismissible">{{msg}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+<form method="post" enctype=multipart/form-data>
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input class="form-control" type="text" name="title" id="title" value="{{ request.form['title'] }}" required>
+  </div>
+  <div class="form-group">
+    <label for="bookTitle">Book Title:</label>
+    <input class="form-control" type="text" name="bookTitle" id="bookTitle" value="{{ request.form['bookTitle'] }}"
+      required>
+  </div>
+
+  <div class="form-group">
+    <label for="photo">Photo:</label>
+    <div class="preview">
+      <input class="form-control" id="file-upload" type="file" name="file" accept="image/*"
+        onchange="previewPhoto(event)">
+      <br>
+      <img alt="Preview" id="file-preview">
+      <label for="file-upload" class="upload-image">Upload Image</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="body">Post Content:</label>
+    <textarea type="textarea" class="form-control" name="body" id="body" minlength="30" rows="5"
+      required>{{ request.form['body'] }}</textarea>
+  </div>
+  <p style="text-align:center;">
+    <input class="btn btn-primary" type="submit" value="Create Post">
+  </p>
+</form>
+{% endblock %}
